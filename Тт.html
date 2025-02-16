@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Галерея Видео и Фото</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="media-container">
+        <!-- Фото -->
+        <div class="media-item">
+            <img src="photo1.jpg" alt="Фото 1">
+        </div>
+
+        <!-- Видео -->
+        <div class="media-item">
+            <video controls>
+                <source src="video1.mp4" type="video/mp4">
+                Ваш браузер не поддерживает видео.
+            </video>
+        </div>
+
+        <!-- Фото -->
+        <div class="media-item">
+            <img src="photo2.jpg" alt="Фото 2">
+        </div>
+
+        <!-- Видео -->
+        <div class="media-item">
+            <video controls>
+                <source src="video2.mp4" type="video/mp4">
+                Ваш браузер не поддерживает видео.
+            </video>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Галерея Видео и Фото</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <h1>Галерея</h1>
+
+    <!-- Форма для загрузки медиа -->
+    <div class="upload-form">
+        <input type="file" id="media-upload" accept="image/*, video/*">
+        <button onclick="uploadMedia()">Загрузить</button>
+    </div>
+
+    <div class="media-container" id="media-container">
+        <!-- Здесь будут добавляться медиа -->
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html><ALOASK-SEPARATE-EDITORS>body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+}
+
+.media-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 20px;
+}
+
+.media-item {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+img, video {
+    width: 100%;
+    height: auto;
+    display: block;
+}body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+}
+
+h1 {
+    text-align: center;
+}
+
+.upload-form {
+    margin: 20px;
+}
+
+.upload-form input {
+    padding: 10px;
+    margin-right: 10px;
+}
+
+.upload-form button {
+    padding: 10px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.upload-form button:hover {
+    background-color: #0056b3;
+}
+
+.media-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 20px;
+}
+
+.media-item {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+img, video {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.like-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #ff5555;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.comment-box {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    width: 90%;
+}
+
+.comment-box input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: #f4f4f4;
+    border-radius: 5px;
+}
+
+.comment-list {
+    padding-top: 10px;
+    max-height: 100px;
+    overflow-y: auto;
+    font-size: 12px;
+}<ALOASK-SEPARATE-EDITORS>// Пример динамического добавления медиа
+function addMedia(src, type) {
+    const mediaContainer = document.querySelector('.media-container');
+    const mediaItem = document.createElement('div');
+    mediaItem.classList.add('media-item');
+
+    if (type === 'image') {
+        const img = document.createElement('img');
+        img.src = src;
+        mediaItem.appendChild(img);
+    } else if (type === 'video') {
+        const video = document.createElement('video');
+        video.controls = true;
+        const source = document.createElement('source');
+        source.src = src;
+        source.type = 'video/mp4';
+        video.appendChild(source);
+        mediaItem.appendChild(video);
+    }
+
+    mediaContainer.appendChild(mediaItem);
+}
+
+// Пример добавления фото и видео
+addMedia('new_photo.jpg', 'image');
+addMedia('new_video.mp4', 'video');let mediaId = 0; // Уникальный ID для медиа
+
+// Функция для загрузки медиа
+function uploadMedia() {
+    const mediaInput = document.getElementById('media-upload');
+    const file = mediaInput.files[0];
+
+    if (!file) {
+        alert('Пожалуйста, выберите файл!');
+        return;
+    }
+
+    const mediaContainer = document.getElementById('media-container');
+    const mediaItem = document.createElement('div');
+    mediaItem.classList.add('media-item');
+    mediaItem.setAttribute('data-id', mediaId++);
+
+    const mediaType = file.type.startsWith('video') ? 'video' : 'image';
+    
+    // Добавление медиа
+    let mediaElement;
+    if (mediaType === 'video') {
+        mediaElement = document.createElement('video');
+        mediaElement.controls = true;
+        const source = document.createElement('source');
+        source.src = URL.createObjectURL(file);
+        source.type = 'video/mp4';
+        mediaElement.appendChild(source);
+    } else {
+        mediaElement = document.createElement('img');
+        mediaElement.src = URL.createObjectURL(file);
+    }
+
+    mediaItem.appendChild(mediaElement);
+
+    // Кнопка для лайка
+    const likeButton = document.createElement('button');
+    likeButton.classList.add('like-button');
+    likeButton.innerHTML = '❤️ 0';
+    likeButton.onclick = () => handleLike(mediaItem);
+    mediaItem.appendChild(likeButton);
+
+    // Комментарии
+    const commentBox = document.createElement('div');
+    commentBox.classList.add('comment-box');
+    const input = document.createElement('input');
+    input.placeholder = 'Оставьте комментарий...';
+    input.onkeydown = (e) => {
+        if (e.key === 'Enter') {
+            handleComment(mediaItem, input.value);
+            input.value = '';
+        }
+    };
+    commentBox.appendChild(input);
+    const commentList = document.createElement('div');
+    commentList.classList.add('comment-list');
+    commentBox.appendChild(commentList);
+
+    mediaItem.appendChild(commentBox);
+
+    // Добавляем медиа на страницу
+    mediaContainer.appendChild(mediaItem);
+}
+
+// Функция для лайков
+function handleLike(mediaItem) {
+    const likeButton = mediaItem.querySelector('.like-button');
+    let likeCount = parseInt(likeButton.innerHTML.split(' ')[1]);
+    likeButton.innerHTML = `❤️ ${++likeCount}`;
+}
+
+// Функция для добавления комментариев
+function handleComment(mediaItem, comment) {
+    const commentList = mediaItem.querySelector('.comment-list');
+    const commentElement = document.createElement('div');
+    commentElement.textContent = comment;
+    commentList.appendChild(commentElement);
+}
